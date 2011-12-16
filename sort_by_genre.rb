@@ -37,7 +37,11 @@ end
 
 # => 1. Get Titles from Directory
 
-here = Dir.new(File.join(ENV["HOME"], "Movies"))
+unless ARGV.nil?
+  here = Dir.new(File.join(ARGV[0]))
+else
+  raise ArgumentError, "You must provide a directory."
+end
 
 # => 2. Initialize OAuth
 
