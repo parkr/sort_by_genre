@@ -37,7 +37,7 @@ end
 
 # => 1. Get Titles from Directory
 
-unless ARGV.nil?
+unless ARGV.nil? || ARGV.empty?
   here = Dir.new(File.join(ARGV[0]))
 else
   raise ArgumentError, "You must provide a directory."
