@@ -28,8 +28,10 @@ genres = {}
 
 # 0.5. Extra Functions
 
-def make_human_title(title)
-  title.chomp(File.extname(title)).to_s.gsub(/[-_]/, " ").gsub(/([A-Z]+)([A-Z][a-z])/, '\1 \2').gsub(/([a-z\d])([A-Z])/, '\1 \2')
+class String
+  def make_human_title
+    self.chomp(File.extname(self)).to_s.gsub(/[-_]/, " ").gsub(/([A-Z]+)([A-Z][a-z])/, '\1 \2').gsub(/([a-z\d])([A-Z])/, '\1 \2')
+  end
 end
 
 
@@ -47,7 +49,7 @@ access_token = OAuth::AccessToken.from_hash(consumer, {})
 here.each do |movie|
   unless movie.start_with?(".")
     
-    term = make_human_title(movie)
+    term = movie.make_human_title
     resp = access_token.get("#{GET_CATEGORY}?term=#{URI.encode(term)}&max_results=1").body
     
     Nokogiri.XML(resp).xpath("//catalog_title").map do |xml|
